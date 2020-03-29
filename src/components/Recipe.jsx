@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import backend from '../api/backend';
 
 class Recipe extends React.Component {
   constructor(props) {
@@ -17,47 +18,38 @@ class Recipe extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      match: {
-        params: { id }
-      }
-    } = this.props;
-    const url = `http://localhost:3000/api/v1/recipes/${id}`;
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(response => this.setState({ recipe: response }))
-      .catch(() => this.props.history.push("/recipes"));
+    this.getRecipe();
   }
 
-  deleteRecipe() {
+  getRecipe = async () => {
     const {
       match: {
         params: { id }
       }
     } = this.props;
-    const url = `http://localhost:3000/api/v1/destroy/${id}`;
-    const token = document.querySelector('meta[name="csrf-token"]').content;
-    fetch(url, {
-      method: "DELETE",
-      headers: {
-        "X-CSRF-Token": token,
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(() => this.props.history.push("/recipes"))
-      .catch(error => console.log(error.message));
+    try {
+      const response = await backend.get(`/recipes/${id}`);
+      this.setState({recipe: response.data});
+    } catch(err) {
+      console.log('error: ', err.message)
+    }
   }
+
+
+  deleteRecipe = async () => {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    try {
+      await backend.delete(`recipes/${id}`, {headers: { "Content-Type": "application/json"}});
+      await this.props.history.push("/recipes");
+    } catch(err) {
+      console.log('error: ', err.message)
+    }
+  }
+
 
   render() {
     const { recipe } = this.state;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import backend from '../api/backend';
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -10,21 +10,13 @@ class Recipes extends React.Component {
     };
   }
 
-  getRecipes() {
-    const url = "http://localhost:3000/api/v1/recipes";
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(response => this.setState({ recipes: response }))
-      .catch(() => this.props.history.push("/"));
-  }
-
   componentDidMount() {
     this.getRecipes();
+  }
+
+  getRecipes = async () => {
+    const response = await backend.get("/recipes");
+    this.setState({ recipes: response.data })
   }
 
   render() {
@@ -69,7 +61,7 @@ class Recipes extends React.Component {
         <div className="py-5">
           <main className="container">
             <div className="text-right mb-3">
-              <Link to="/recipes" className="btn custom-button">
+              <Link to="/new_recipe" className="btn custom-button">
                 Create New Recipe
               </Link>
             </div>

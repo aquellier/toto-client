@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import backend from '../api/backend';
 
 class NewRecipe extends React.Component {
   constructor(props) {
@@ -25,39 +26,26 @@ class NewRecipe extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  onSubmit(event) {
+  onSubmit = async (event) => {
     event.preventDefault();
-    const url = 'http://localhost:3000/api/v1/recipes/create';
 
     const { name, ingredients, instruction } = this.state;
 
     if (name.length === 0 || ingredients.length === 0 || instruction.length === 0)
       return;
 
-    const body = {
+    const recipe = {
       name,
       ingredients,
       instruction: instruction.replace(/\n/, '<br> <br>')
     }
 
-    const token = document.querySelector("meta[name='csrf-token']").content;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'X-CSRF-TOKEN': token,
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-    .then(response => {
-      if(response.ok) {
-        return response.json();
-      }
-      throw new Error('Network response was not ok');
-    })
-    .then(response => this.props.history.push(`/recipes/${response.id}`))
-    .catch(error => console.log(error.message));
-
+    try {
+      const response = await backend.post('/recipes', recipe);
+      await this.props.history.push('/recipes');
+    } catch (err) {
+      console.log('error: ', err.message)
+    }
   }
 
   render() {
