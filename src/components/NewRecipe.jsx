@@ -41,7 +41,7 @@ class NewRecipe extends React.Component {
     }
 
     try {
-      const response = await backend.post('/recipes', recipe);
+      await backend.post('/recipes', recipe);
       await this.props.history.push('/recipes');
     } catch (err) {
       console.log('error: ', err.message)
