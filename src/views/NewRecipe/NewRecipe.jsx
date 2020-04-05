@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import backend from '../api/backend';
+import backend from '../../api/backend';
 
 class NewRecipe extends React.Component {
   constructor(props) {

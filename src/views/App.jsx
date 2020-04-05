@@ -1,15 +1,16 @@
 import React from "react";
 import Routes from "../router/Index";
 import { BrowserRouter as Router } from "react-router-dom";
-import NavBar from "./Navbar";
+import { ThemeProvider } from '@material-ui/core/styles';
 
 export default function App() {
   return (
   <div>
-    <Router>
-      <NavBar/>
-      <Routes />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Routes />
+      </Router>
+    </ThemeProvider>
   </div>
   );
 }
