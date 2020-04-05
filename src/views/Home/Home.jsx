@@ -26,7 +26,7 @@ export default function HomePage(props) {
           fixed
           changeColorOnScroll={{
             height: 400,
-            color: "black"
+            color: "fark"
           }}
           {...rest}
         />
@@ -34,7 +34,7 @@ export default function HomePage(props) {
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>Your Story Starts With Us.</h1>
+              <h1 className={classes.title}>Another food website</h1>
               <h4>
                 Every landing page needs a small description after the big bold
                 title, that{"'"}s why we added this text here. Add here all the
@@ -42,16 +42,17 @@ export default function HomePage(props) {
                 impression.
               </h4>
               <br />
+              <Link to='/recipes' className={classes.link}>
               <Button
-                color="danger"
+                color="primary"
                 size="lg"
                 href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <i className="fas fa-play" />
-                Watch video
+                View Recipes
               </Button>
+              </Link>
             </GridItem>
           </GridContainer>
         </div>

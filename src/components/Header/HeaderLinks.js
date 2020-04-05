@@ -12,7 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
+import { AccountBox } from "@material-ui/icons";
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
@@ -27,39 +27,37 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <CustomDropdown
-          noLiPadding
-          buttonText="Components"
-          buttonProps={{
-            className: classes.navLink,
-            color: "transparent"
-          }}
-          buttonIcon={Apps}
-          dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              All components
-            </Link>,
-            <a
-              href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              Documentation
-            </a>
-          ]}
-        />
+        <Link to="/recipes" className={classes.navLink}>
+          <Button
+            color="transparent"
+            className={classes.navLinkButton}
+          >
+            Recipes
+          </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <CloudDownload className={classes.icons} /> Download
-        </Button>
+        <Link to="/recipes" className={classes.navLink}>
+          <Button
+            color="transparent"
+            className={classes.navLinkButton}
+          >
+            Chefs
+          </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
+        <Link to="/recipes" className={classes.navLink}>
+          <Button
+            color="transparent"
+            className={classes.navLinkButton}
+          >
+            Addresses
+          </Button>
+        </Link>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+
         {/*<Tooltip title="Delete">
           <IconButton aria-label="Delete">
             <DeleteIcon />
@@ -75,7 +73,7 @@ export default function HeaderLinks(props) {
             href="https://twitter.com/CreativeTim?ref=creativetim"
             target="_blank"
             color="transparent"
-            className={classes.navLink}
+            className={classes.navLinkButton}
           >
             <i className={classes.socialIcons + " fab fa-twitter"} />
           </Button>
@@ -92,7 +90,7 @@ export default function HeaderLinks(props) {
             color="transparent"
             href="https://www.facebook.com/CreativeTim?ref=creativetim"
             target="_blank"
-            className={classes.navLink}
+            className={classes.navLinkButton}
           >
             <i className={classes.socialIcons + " fab fa-facebook"} />
           </Button>
@@ -109,11 +107,39 @@ export default function HeaderLinks(props) {
             color="transparent"
             href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
             target="_blank"
-            className={classes.navLink}
+            className={classes.navLinkButton}
           >
             <i className={classes.socialIcons + " fab fa-instagram"} />
           </Button>
         </Tooltip>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <CustomDropdown
+          noLiPadding
+          buttonText="My Account"
+          buttonProps={{
+            className: classes.navLinkButton,
+            color: "transparent"
+          }}
+          buttonIcon={AccountBox}
+          dropdownList={[
+            <Link to="/" className={classes.dropdownLink}>
+              Profile
+            </Link>,
+            <Link to="/" className={classes.dropdownLink}>
+              Favorites
+            </Link>,
+            <Link to="/" className={classes.dropdownLink}>
+              Help
+            </Link>,
+            <Link to="/" className={classes.dropdownLink}>
+              Settings
+            </Link>,
+            <Link to="/" className={classes.dropdownLink}>
+              Log out
+            </Link>,
+          ]}
+        />
       </ListItem>
     </List>
   );

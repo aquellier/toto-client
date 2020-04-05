@@ -66,10 +66,10 @@ const card = {
 const defaultFont = {
   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: "300",
-  lineHeight: "1.5em"
+  lineHeight: "2em",
 };
 
-const primaryColor = "#9c27b0";
+const primaryColor = "#CC998D";
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
 const successColor = "#4caf50";
@@ -163,6 +163,14 @@ const title = {
   fontFamily: `"Roboto Slab", "Times New Roman", serif`
 };
 
+const link = {
+  color: "inherit",
+  "&:hover,&:focus": {
+    color: "inherit",
+    textDecoration: "none",
+  },
+}
+
 const cardTitle = {
   ...title,
   marginTop: ".625rem"
@@ -211,6 +219,7 @@ export {
   cardHeader,
   defaultBoxShadow,
   title,
+  link,
   cardTitle,
   cardLink,
   cardSubtitle

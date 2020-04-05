@@ -1,5 +1,4 @@
-import { defaultFont } from "assets/jss/mainTheme.js";
-
+import { defaultFont, primaryColor, link } from "assets/jss/mainTheme.js";
 import tooltip from "assets/jss/components/tooltipsStyle.js";
 
 const headerLinksStyle = theme => ({
@@ -34,9 +33,12 @@ const headerLinksStyle = theme => ({
     }
   },
   listItemText: {
-    padding: "0 !important"
+    padding: "0 !important",
   },
   navLink: {
+    ...link
+  },
+  navLinkButton: {
     color: "inherit",
     position: "relative",
     padding: "0.9375rem",
@@ -49,8 +51,12 @@ const headerLinksStyle = theme => ({
     margin: "0px",
     display: "inline-flex",
     "&:hover,&:focus": {
+      outline: "none",
       color: "inherit",
-      background: "rgba(200, 200, 200, 0.2)"
+      background: "rgba(240, 240, 240, 0.2)"
+    },
+    innerLinks: {
+      textDecoration: "none !important",
     },
     [theme.breakpoints.down("sm")]: {
       width: "calc(100% - 30px)",
