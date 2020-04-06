@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -8,14 +9,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/components/headerStyle.js";
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(styles);
 
@@ -54,12 +53,13 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks, leftLinks, search, brand, fixed, sticky, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
-    [classes.fixed]: fixed
+    [classes.fixed]: fixed,
+    [classes.sticky]: sticky
   });
   const brandComponent = <Link to="/" className={classes.title}>{brand}</Link>;
   return (
@@ -75,6 +75,10 @@ export default function Header(props) {
             brandComponent
           )}
         </div>
+
+        <Hidden smDown implementation="css">
+          {search}
+        </Hidden>
         <Hidden smDown implementation="css">
           {rightLinks}
         </Hidden>
@@ -124,6 +128,7 @@ Header.propTypes = {
     "rose",
     "dark"
   ]),
+  search: PropTypes.node,
   rightLinks: PropTypes.node,
   leftLinks: PropTypes.node,
   brand: PropTypes.string,

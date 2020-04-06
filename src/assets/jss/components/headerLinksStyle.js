@@ -1,4 +1,4 @@
-import { defaultFont, primaryColor, link } from "assets/jss/mainTheme.js";
+import { defaultFont, link } from "assets/jss/mainTheme.js";
 import tooltip from "assets/jss/components/tooltipsStyle.js";
 
 const headerLinksStyle = theme => ({

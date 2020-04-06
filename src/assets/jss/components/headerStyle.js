@@ -12,13 +12,12 @@ import {
   drawerWidth
 } from "assets/jss/mainTheme.js";
 
-const headerStyle = {
+const headerStyle = theme => ({
   appBar: {
     display: "flex",
     border: "0",
     borderRadius: "3px",
     padding: "0.625rem 0",
-    marginBottom: "20px",
     color: "#555",
     width: "100%",
     backgroundColor: "#fff",
@@ -37,6 +36,10 @@ const headerStyle = {
   },
   fixed: {
     position: "fixed",
+    zIndex: "1100"
+  },
+  sticky: {
+    position: "sticky",
     zIndex: "1100"
   },
   container: {
@@ -147,6 +150,6 @@ const headerStyle = {
     paddingLeft: "0",
     ...transition
   }
-};
+});
 
 export default headerStyle;

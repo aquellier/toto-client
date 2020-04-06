@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import backend from '../../api/backend';
+import Header from "components/Header/Header.js";
+import HeaderLinks from "components/Header/HeaderLinks.js";
+import HeaderSearch from "components/Header/HeaderSearch.js";
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -45,9 +48,15 @@ class Recipes extends React.Component {
         </h4>
       </div>
     );
-
     return (
       <>
+      <Header
+          color="dark"
+          brand="Toto Kitchen"
+          rightLinks={<HeaderLinks />}
+          search={<HeaderSearch />}
+          sticky
+        />
         <section className="jumbotron jumbotron-fluid text-center">
           <div className="container py-5">
             <h1 className="display-4">Recipes for every occasion</h1>
