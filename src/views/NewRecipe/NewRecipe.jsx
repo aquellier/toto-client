@@ -28,7 +28,7 @@ class NewRecipe extends React.Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
-
+    debugger
     const { name, ingredients, instruction } = this.state;
 
     if (name.length === 0 || ingredients.length === 0 || instruction.length === 0)
