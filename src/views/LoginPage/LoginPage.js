@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+// api imports
+import backend from '../../api/backend';
 // @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -34,10 +36,38 @@ class LoginPage extends Component {
       password: '',
       cardAnimation: 'cardHidden'
     }
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
     setTimeout(() => { this.setState({ cardAnimation: '' }) }, 700);
+  }
+
+  onChange(event) {
+    this.setState({[event.target.id]: event.target.value})
+  }
+
+  onSubmit = async (event) => {
+    event.preventDefault();
+    const { firstname, email, password } = this.state;
+
+    if (firstname.length === 0 || email.length === 0 || password.length === 0)
+      return;
+
+    const credentials = {
+      firstname,
+      email,
+      password
+    }
+    debugger
+    try {
+      await backend.post('/signup', credentials);
+      await this.props.history.push('/signup');
+    } catch (err) {
+      console.log('error: ', err.message)
+    }
   }
 
   render () {
@@ -63,7 +93,9 @@ class LoginPage extends Component {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimation]}>
-                  <form className={classes.form}>
+                  <form className={classes.form} onSubmit={this.onSubmit}>
+
+                    {/* Card Header for facebook login
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Login</h4>
                       <div className={classes.socialLine}>
@@ -95,12 +127,12 @@ class LoginPage extends Component {
                           <i className={"fab fa-google-plus-g"} />
                         </Button>
                       </div>
-                    </CardHeader>
-                    <p className={classes.divider}>Or Be Classical</p>
+                    </CardHeader> */}
+                    <p className={classes.divider}>Sign Up</p>
                     <CardBody>
                       <CustomInput
                         labelText="First Name..."
-                        id="first"
+                        id="firstname"
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -108,10 +140,11 @@ class LoginPage extends Component {
                           type: "text",
                           endAdornment: (
                             <InputAdornment position="end">
-                              <People className={classes.inputIconsColor} />
+                              <People className={classes.inputIconsColor}/>
                             </InputAdornment>
-                          )
+                          ),
                         }}
+                        onChange={this.onChange}
                       />
                       <CustomInput
                         labelText="Email..."
@@ -123,14 +156,15 @@ class LoginPage extends Component {
                           type: "email",
                           endAdornment: (
                             <InputAdornment position="end">
-                              <Email className={classes.inputIconsColor} />
+                              <Email className={classes.inputIconsColor}/>
                             </InputAdornment>
                           )
                         }}
+                        onChange={this.onChange}
                       />
                       <CustomInput
                         labelText="Password"
-                        id="pass"
+                        id="password"
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -145,10 +179,11 @@ class LoginPage extends Component {
                           ),
                           autoComplete: "off"
                         }}
+                        onChange={this.onChange}
                       />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg">
+                      <Button simple type="submit" color="primary" size="lg">
                         Get started
                       </Button>
                     </CardFooter>
