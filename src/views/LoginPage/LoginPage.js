@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 // api imports
 import backend from '../../api/backend';
 // @material-ui/core components
@@ -31,7 +32,8 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: '',
+      first_name: '',
+      last_name: '',
       email: '',
       password: '',
       cardAnimation: 'cardHidden'
@@ -51,19 +53,23 @@ class LoginPage extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
-    const { firstname, email, password } = this.state;
+    const { first_name, last_name, email, password } = this.state;
 
-    if (firstname.length === 0 || email.length === 0 || password.length === 0)
+    if (first_name.length === 0 ||
+        last_name.length === 0 ||
+        email.length === 0 ||
+        password.length === 0
+        )
       return;
 
     const credentials = {
-      firstname,
+      first_name,
       email,
       password
     }
-    debugger
+
     try {
-      await backend.post('/signup', credentials);
+      await axios.post('http://localhost:3000/signup', credentials);
       await this.props.history.push('/signup');
     } catch (err) {
       console.log('error: ', err.message)
@@ -132,7 +138,23 @@ class LoginPage extends Component {
                     <CardBody>
                       <CustomInput
                         labelText="First Name..."
-                        id="firstname"
+                        id="first_name"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "text",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <People className={classes.inputIconsColor}/>
+                            </InputAdornment>
+                          ),
+                        }}
+                        onChange={this.onChange}
+                      />
+                      <CustomInput
+                        labelText="Last Name..."
+                        id="last_name"
                         formControlProps={{
                           fullWidth: true
                         }}
