@@ -8,10 +8,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import App from "./views/App";
+import store from "./store/index";
+import { Provider } from "react-redux";
+import { addRecipe } from "./actions/index";
 
 document.addEventListener("DOMContentLoaded", () => {
   render(
-    <App />,
+    <Provider store={store}>
+      <App />,
+    </Provider>,
     document.body.appendChild(document.createElement("div"))
   );
 });
+
+
+window.store = store;
+window.addRecipe = addRecipe;

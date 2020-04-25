@@ -9,6 +9,8 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
+import Form from "../NewRecipe/NewStoreRecipe.js";
+import Post from "../Recipes/Getdata.js";
 
 import styles from "assets/jss/views/homePage.js";
 
@@ -74,6 +76,8 @@ export default function HomePage(props) {
           </div>
         </div>
       </div>
+      <Form/>
+      <Post/>
     </div>
   )
 };
