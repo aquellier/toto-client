@@ -1,16 +1,18 @@
-import { ADD_RECIPE } from "../constants/action-types";
-import backend from "../api/backend";
+import backend from "../api/backend.js";
+import { ADD_RECIPE, DATA_LOADED } from "../constants/action-types";
 
-export function addRecipe(payload) {
-  debugger
-  return { type: "ADD_RECIPE", payload }
+export const addRecipe = (payload) => {
+  return async (dispatch) => {
+    const response = await backend.post('/recipes', payload);
+    await this.props.history.push('/recipes');
+    dispatch({ type: ADD_RECIPE, payload: response.data})
+  }
 };
 
-// src/js/actions/index.js
 
-// ...
-// our new action creator. Will it work?
-export const getData = async () => {
-  const response = await backend.get("/recipes");
-  return { type: "DATA_LOADED", payload: response };
+export const getRecipes = () => {
+  return async (dispatch) => {
+    const response = await backend.get('/recipes');
+    dispatch({ type: DATA_LOADED, payload: response.data})
+  };
 }

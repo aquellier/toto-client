@@ -1,1 +1,3 @@
 export const ADD_RECIPE = "ADD_RECIPE";
+export const DATA_LOADED = "DATA_LOADED";
+export const NAME_ALREADY_EXISTS = "NAME_ALREADY_EXISTS";

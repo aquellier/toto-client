@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 
 function mapDispatchToProps(dispatch) {
   return {
-    addRecipe: recipe => dispatch(addRecipe(recipe))
+    addRecipe: (recipe) => {
+      dispatch(addRecipe(recipe))
+    }
   };
 }
 
@@ -26,11 +28,13 @@ class ConnectedForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(event) {
+  onSubmit = async (event) => {
     event.preventDefault();
     const { name, ingredients, instruction } = this.state;
     this.props.addRecipe({ name, ingredients, instruction });
     this.setState({ name: "", ingredients: "", instruction: "" });
+    debugger
+    await this.props.history.push('/recipes');
   }
 
   render() {

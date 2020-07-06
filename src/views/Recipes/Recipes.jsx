@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import backend from '../../api/backend';
+import { getRecipes } from "../../actions/index";
+
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import HeaderSearch from "components/Header/HeaderSearch.js";
@@ -9,22 +12,14 @@ import HeaderSearch from "components/Header/HeaderSearch.js";
 class Recipes extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      recipes: []
-    };
   }
 
   componentDidMount() {
-    this.getRecipes();
-  }
-
-  getRecipes = async () => {
-    const response = await backend.get("/recipes");
-    this.setState({ recipes: response.data })
+    this.props.getRecipes();
   }
 
   render() {
-    const { recipes } = this.state;
+    const recipes = this.props.recipes;
     const allRecipes = recipes.map((recipe, index) => (
       <div key={index} className="col-md-6 col-lg-4">
         <div className="card mb-4">
@@ -87,4 +82,15 @@ class Recipes extends React.Component {
     );
   }
 }
-export default Recipes;
+
+const mapStateToProps = (state) => {
+  return {
+    recipes: state.recipes
+  };
+}
+
+
+export default connect(
+  mapStateToProps,
+  { getRecipes }
+)(Recipes);
