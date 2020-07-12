@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 
 const store = configureStore();
 
+
 document.addEventListener("DOMContentLoaded", () => {
   render(
     <Provider store={store}>
@@ -21,3 +22,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(document.createElement("div"))
   );
 });
+
+export { store };

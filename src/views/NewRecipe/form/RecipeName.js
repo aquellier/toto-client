@@ -20,6 +20,7 @@ class RecipeName extends React.Component {
   };
 
   render() {
+    const { nameError } = this.props;
     const { name } = this.state;
     return (
       <div className="form-group">
@@ -32,8 +33,8 @@ class RecipeName extends React.Component {
             required
             onChange={this.onChange}
             onBlur={this.onBlur}
-            value={name}
-          />
+            value={name} />
+          {nameError && <div>This name is already taken</div> }
       </div>
     )
   }

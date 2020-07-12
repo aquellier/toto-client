@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reducer from "../reducers/index";
-import initialState from './initialState';
 import formValidationMiddleware from "../middleware/recipes/formValidation";
 import postRecipeMiddleware from "../middleware/recipes/post";
 import thunk from "redux-thunk";

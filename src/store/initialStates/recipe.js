@@ -3,6 +3,7 @@ export default {
   ingredients: "",
   instructions: "",
   errors: {
-    name: null
+    name: null,
+    ingredients: null
   }
 }

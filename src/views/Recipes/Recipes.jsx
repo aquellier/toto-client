@@ -8,10 +8,9 @@ import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import HeaderSearch from "components/Header/HeaderSearch.js";
 
-function mapStateToProps(state) {
-  return {
-    recipes: state.recipes
-  };
+function mapStateToProps(storeState, componentProps) {
+  const { recipes } = storeState;
+  return { recipes };
 }
 
 class Recipes extends React.Component {
@@ -24,7 +23,7 @@ class Recipes extends React.Component {
   }
 
   render() {
-    const recipes = this.props.recipes.recipes;
+    const recipes = this.props.recipes;
     const allRecipes = recipes.map((recipe, index) => (
       <div key={index} className="col-md-6 col-lg-4">
         <div className="card mb-4">
