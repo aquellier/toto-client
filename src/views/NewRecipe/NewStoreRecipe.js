@@ -1,7 +1,7 @@
 // src/js/components/Form.jsx
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addRecipe, updateRecipeAttributes } from "../../actions/recipesActions/index";
+import { getRecipes, addRecipe, updateRecipeAttributes } from "../../actions/recipesActions/index";
 import { Link } from "react-router-dom";
 import RecipeName from './form/RecipeName';
 import RecipeIngredients from './form/RecipeIngredients';
@@ -9,6 +9,14 @@ import RecipeInstructions from './form/RecipeInstructions';
 
 
 class ConnectedForm extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    debugger
+    this.props.getRecipes();
+  }
 
   submitForm = (e) => {
     e.preventDefault();
@@ -58,18 +66,22 @@ class ConnectedForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getRecipes: (recipe) => {
+      dispatch(getRecipes(recipe))
+    },
     addRecipe: (recipe) => {
       dispatch(addRecipe(recipe))
     },
     updateRecipeAttributes: (newAttributes) => {
       dispatch(updateRecipeAttributes(newAttributes))
     }
+
   };
 }
 
 function mapStateToProps(storeState, componentProps) {
-  const { recipe } = storeState;
-  return { recipe };
+  const { recipe, recipes } = storeState;
+  return { recipe, recipes };
 }
 
 const Form = connect(

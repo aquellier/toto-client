@@ -23,4 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 });
 
+window.store = store;
+
 export { store };
