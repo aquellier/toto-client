@@ -64,7 +64,7 @@ class ShowRecipe extends React.Component {
         ));
     }
 
-    const recipeInstruction = this.addHtmlEntities(recipe.instruction);
+    const recipeInstructions = this.addHtmlEntities(recipe.instructions);
 
     return (
       <div className="">
@@ -91,7 +91,7 @@ class ShowRecipe extends React.Component {
               <h5 className="mb-2">Preparation Instructions</h5>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: `${recipeInstruction}`
+                  __html: `${recipeInstructions}`
                 }}
               />
             </div>

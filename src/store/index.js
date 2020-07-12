@@ -1,13 +1,18 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import rootReducer from "../reducers/index";
-import { uniqueNameMiddleware } from "../middleware";
+import reducer from "../reducers/index";
+import initialState from './initialState';
+import formValidationMiddleware from "../middleware/recipes/formValidation";
+import postRecipeMiddleware from "../middleware/recipes/post";
 import thunk from "redux-thunk";
 
-const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  rootReducer,
-  storeEnhancers(applyMiddleware(uniqueNameMiddleware, thunk))
-);
+export default function configureStore(){
+  const middlewares = [formValidationMiddleware, postRecipeMiddleware, thunk]
+  const middlewareEnhancer = applyMiddleware(...middlewares)
 
-export default store;
+  const composedEnhancers = composeEnhancers(middlewareEnhancer)
+
+  const store = createStore(reducer, composedEnhancers)
+  return store
+}

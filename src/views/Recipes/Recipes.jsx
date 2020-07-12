@@ -2,12 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import backend from '../../api/backend';
-import { getRecipes } from "../../actions/index";
+import { getRecipes } from "../../actions/recipesActions/index";
 
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import HeaderSearch from "components/Header/HeaderSearch.js";
+
+function mapStateToProps(state) {
+  return {
+    recipes: state.recipes
+  };
+}
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -19,7 +24,7 @@ class Recipes extends React.Component {
   }
 
   render() {
-    const recipes = this.props.recipes;
+    const recipes = this.props.recipes.recipes;
     const allRecipes = recipes.map((recipe, index) => (
       <div key={index} className="col-md-6 col-lg-4">
         <div className="card mb-4">
@@ -82,13 +87,6 @@ class Recipes extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes
-  };
-}
-
 
 export default connect(
   mapStateToProps,

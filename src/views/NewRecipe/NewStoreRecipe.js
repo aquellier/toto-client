@@ -1,44 +1,27 @@
 // src/js/components/Form.jsx
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addRecipe } from "../../actions/index";
+import { addRecipe, updateRecipeAttributes } from "../../actions/recipesActions/index";
 import { Link } from "react-router-dom";
+import RecipeName from './form/RecipeName';
+import RecipeIngredients from './form/RecipeIngredients';
+import RecipeInstructions from './form/RecipeInstructions';
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addRecipe: (recipe) => {
-      dispatch(addRecipe(recipe))
-    }
-  };
-}
 
 class ConnectedForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      ingredients: "",
-      instruction: ""
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
 
-  onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
+  submitForm = (e) => {
+    e.preventDefault();
+    this.props.addRecipe(this.props.recipe);
 
-  onSubmit = async (event) => {
-    event.preventDefault();
-    const { name, ingredients, instruction } = this.state;
-    this.props.addRecipe({ name, ingredients, instruction });
-    this.setState({ name: "", ingredients: "", instruction: "" });
-    debugger
-    await this.props.history.push('/recipes');
-  }
+  };
+
+  updateRecipeAttributes = (newAttributes) => {
+    this.props.updateRecipeAttributes(newAttributes)
+  };
 
   render() {
-    const { name, ingredients, instructions } = this.state;
+    const { name, ingredients, instructions, errors } = this.props.recipe;
     return (
       <div className="container mt-5">
         <div className="row">
@@ -46,41 +29,19 @@ class ConnectedForm extends Component {
             <h1 className="font-weight-normal mb-5">
               Add a new recipe to our awesome recipe collection.
             </h1>
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <label htmlFor="recipeName">Recipe name</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="recipeName"
-                  className="form-control"
-                  required
-                  onChange={this.onChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="recipeIngredients">Ingredients</label>
-                <input
-                  type="text"
-                  name="ingredients"
-                  id="recipeIngredients"
-                  className="form-control"
-                  required
-                  onChange={this.onChange}
-                />
-                <small id="ingredientsHelp" className="form-text text-muted">
-                  Separate each ingredient with a comma.
-                </small>
-              </div>
-              <label htmlFor="instruction">Preparation Instructions</label>
-              <textarea
-                className="form-control"
-                id="instruction"
-                name="instruction"
-                rows="5"
-                required
-                onChange={this.onChange}
-              />
+            <form onSubmit={this.submitForm}>
+              <RecipeName
+                name={name}
+                nameError={errors.name}
+                onAttributeUpdate={this.updateRecipeAttributes}/>
+              <RecipeIngredients
+                ingredients={ingredients}
+                ingredientsError={errors.ingredients}
+                onAttributeUpdate={this.updateRecipeAttributes}/>
+              <RecipeInstructions
+                instructions={instructions}
+                instructionsError={errors.instructions}
+                onAttributeUpdate={this.updateRecipeAttributes}/>
               <button type="submit" className="btn custom-button mt-3">
                 Create Recipe
               </button>
@@ -95,8 +56,24 @@ class ConnectedForm extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    addRecipe: (recipe) => {
+      dispatch(addRecipe(recipe))
+    },
+    updateRecipeAttributes: (newAttributes) => {
+      dispatch(updateRecipeAttributes(newAttributes))
+    }
+  };
+}
+
+function mapStateToProps(storeState, componentProps) {
+  const { recipe } = storeState;
+  return { recipe };
+}
+
 const Form = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ConnectedForm);
 

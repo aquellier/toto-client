@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import Home from "../views/Home/Home";
 import Recipes from "../views/Recipes/Recipes";
 import Recipe from "../views/ShowRecipe/ShowRecipe";
-import NewRecipe from "../views/NewRecipe/NewRecipe";
 import NewStoreRecipe from "../views/NewRecipe/NewStoreRecipe";
 import LoginPage from "../views/LoginPage/LoginPage";
 
