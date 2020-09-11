@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomInput from "components/CustomInput/CustomInput.js";
 
 class RecipeIngredients extends React.Component {
   state = {
@@ -20,20 +21,22 @@ class RecipeIngredients extends React.Component {
   };
 
   render() {
+    const { ingredientsError } = this.props;
     const { ingredients } = this.state;
     return (
-      <div className="form-group">
-        <label htmlFor="recipeInstructions">Recipe Ingredients</label>
-          <input
-            type="text"
-            name="ingredients"
-            id="recipeIngredients"
-            className="form-control"
-            required
-            onChange={this.onChange}
-            onBlur={this.onBlur}
-            value={ingredients}
-          />
+      <div>
+        <CustomInput
+          labelText="Recipe ingredients..."
+          name="ingredients"
+          id="recipeIngredients"
+          required
+          formControlProps={{
+            fullWidth: true
+          }}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          value={ingredients}/>
+          {ingredientsError && <div>Errors in ingredients</div> }
           <small id="ingredientsHelp" className="form-text text-muted">
             Separate each ingredient with a comma.
           </small>
