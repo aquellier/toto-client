@@ -6,11 +6,9 @@ export const attributeValidators = {
 }
 
 function nameValid(recipe) {
-  if (!recipe.name || recipe.name.length < 10) {
-    return false
-  }
-  const recipes = store.getState().recipes
-  return !nameAlreadyExists(recipe.name, recipes)
+  return recipe.name && recipe.name.length > 4
+  // const recipes = store.getState().recipes
+  // return !nameAlreadyExists(recipe.name, recipes)
 }
 
 function ingredientsValid(recipe) {

@@ -1,7 +1,7 @@
 // src/js/components/Form.jsx
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getRecipes, addRecipe, updateRecipeAttributes } from "../../actions/recipesActions/index";
+import { addRecipe, updateRecipeAttributes } from "../../actions/recipesActions/index";
 import { Link } from "react-router-dom";
 import RecipeName from './form/RecipeName';
 import RecipeIngredients from './form/RecipeIngredients';
@@ -73,9 +73,6 @@ class ConnectedForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // getRecipes: (recipe) => {
-    //   dispatch(getRecipes(recipe))
-    // },
     addRecipe: (recipe) => {
       dispatch(addRecipe(recipe))
     },
