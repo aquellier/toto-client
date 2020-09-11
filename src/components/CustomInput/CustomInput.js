@@ -26,7 +26,7 @@ export default function CustomInput(props) {
     inputRootCustomClasses,
     success,
     onChange,
-    onBlur,
+    onBlur
   } = props;
 
   const labelClasses = classNames({

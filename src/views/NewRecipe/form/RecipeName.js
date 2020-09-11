@@ -12,11 +12,9 @@ class RecipeName extends React.Component {
 
   onChange = (e) => {
     this.setState({name: e.target.value})
-    console.log(this.state)
   };
 
   onBlur = (e) => {
-    debugger
     this.props.onAttributeUpdate(
       { name: this.state.name }
     )
@@ -35,10 +33,6 @@ class RecipeName extends React.Component {
           formControlProps={{
             fullWidth: true
           }}
-          // inputProps={{
-          //   type: "text",
-          //   name: "name"
-          // }}
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={name}/>

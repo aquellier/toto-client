@@ -20,7 +20,6 @@ class ConnectedForm extends Component {
   submitForm = (e) => {
     e.preventDefault();
     this.props.addRecipe(this.props.recipe);
-
   };
 
   updateRecipeAttributes = (newAttributes) => {
