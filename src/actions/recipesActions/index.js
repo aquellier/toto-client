@@ -10,6 +10,7 @@ import {
 } from "../../constants/action-types";
 
 export const addRecipe = recipe => {
+  debugger
   return { type: ADD_RECIPE, recipe: recipe}
 }
 

@@ -11,6 +11,7 @@ class RecipeIngredients extends React.Component {
 
   onChange = (e) => {
     this.setState({ingredients: e.target.value})
+    console.log(this.state)
   };
 
   onBlur = (e) => {

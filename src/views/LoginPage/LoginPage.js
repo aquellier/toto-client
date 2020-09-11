@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-// api imports
-// import backend from '../../api/backend';
+
 // @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -54,13 +53,6 @@ class LoginPage extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     const { first_name, last_name, email, password } = this.state;
-
-    if (first_name.length === 0 ||
-        last_name.length === 0 ||
-        email.length === 0 ||
-        password.length === 0
-        )
-      return;
 
     const credentials = {
       first_name,

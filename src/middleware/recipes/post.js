@@ -10,7 +10,7 @@ const postRecipeMiddleware = ({ dispatch, getState}) => next => async action => 
     return next(action)
   }
   try {
-    const response = await backend.post('/recipes', action.payload);
+    const response = await backend.post('/recipes', action.recipe);
     await this.props.history.push('/recipes');
     dispatch(saveRecipeSuccess(response.data))
   } catch (err) {

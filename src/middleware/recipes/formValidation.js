@@ -2,7 +2,7 @@ import { ADD_RECIPE } from "../../constants/action-types";
 import recipeValidationErrors from '../../utils/recipeValidationErrors';
 import recipeIsValid from '../../utils/recipeIsValid';
 import { recipeValidationError } from '../../actions/recipesActions/index';
-
+import { store } from '../../index';
 const formValidationMiddleware = ({ getState, dispatch }) => next => action => {
   if (action.type !== ADD_RECIPE) {
     return next(action)

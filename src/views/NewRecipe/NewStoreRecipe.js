@@ -7,15 +7,14 @@ import RecipeName from './form/RecipeName';
 import RecipeIngredients from './form/RecipeIngredients';
 import RecipeInstructions from './form/RecipeInstructions';
 
+import Header from "components/Header/Header";
+import HeaderLinks from "components/Header/HeaderLinks";
+import HeaderSearch from "components/Header/HeaderSearch";
+
 
 class ConnectedForm extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    debugger
-    this.props.getRecipes();
   }
 
   submitForm = (e) => {
@@ -31,6 +30,14 @@ class ConnectedForm extends Component {
   render() {
     const { name, ingredients, instructions, errors } = this.props.recipe;
     return (
+      <>
+      <Header
+          color="dark"
+          brand="Toto Kitchen"
+          rightLinks={<HeaderLinks />}
+          search={<HeaderSearch />}
+          sticky
+        />
       <div className="container mt-5">
         <div className="row">
           <div className="col-sm-12 col-lg-6 offset-lg-3">
@@ -60,15 +67,16 @@ class ConnectedForm extends Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRecipes: (recipe) => {
-      dispatch(getRecipes(recipe))
-    },
+    // getRecipes: (recipe) => {
+    //   dispatch(getRecipes(recipe))
+    // },
     addRecipe: (recipe) => {
       dispatch(addRecipe(recipe))
     },
@@ -80,8 +88,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(storeState, componentProps) {
-  const { recipe, recipes } = storeState;
-  return { recipe, recipes };
+  const { recipe } = storeState;
+  return { recipe };
 }
 
 const Form = connect(

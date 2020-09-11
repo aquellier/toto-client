@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomInput from "components/CustomInput/CustomInput";
 
 class RecipeInstructions extends React.Component {
   state = {
@@ -23,18 +24,21 @@ class RecipeInstructions extends React.Component {
     const { instructions } = this.state;
     return (
       <div>
-        <label htmlFor="recipeInstructions">Recipe Instructions</label>
-          <textarea
-            className="form-control"
-            id="recipeInstructions"
-            name="instructions"
-            rows="5"
-            required
-            onChange={this.onChange}
-            onBlur={this.onBlur}
-            value={instructions}
-          />
-        </div>
+        <CustomInput
+          labelText="Recipe instructions..."
+          id="recipeInstructions"
+          required
+          formControlProps={{
+            fullWidth: true
+          }}
+          inputProps={{
+            type: "text",
+            name: "instructions"
+          }}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          value={instructions}/>
+      </div>
     )
   }
 };
