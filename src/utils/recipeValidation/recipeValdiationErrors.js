@@ -1,4 +1,4 @@
-import { attributeValidators } from './recipeValidation/attributeValidators';
+import { attributeValidators } from './attributeValidators';
 
 export default function recipeValidationErrors(recipe) {
   let errors = {};

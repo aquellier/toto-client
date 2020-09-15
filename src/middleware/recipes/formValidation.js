@@ -1,6 +1,6 @@
 import { ADD_RECIPE } from "../../constants/action-types";
 import recipeValidationErrors from '../../utils/recipeValidationErrors';
-import recipeIsValid from '../../utils/recipeIsValid';
+import recipeIsValid from '../../utils/recipeValidation/recipeIsValid';
 import { recipeValidationError } from '../../actions/recipesActions/index';
 
 const formValidationMiddleware = ({ getState, dispatch }) => next => action => {

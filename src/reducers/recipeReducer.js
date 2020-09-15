@@ -1,4 +1,4 @@
- import defaultState from '../store/initialStates/recipe';
+import defaultState from '../store/initialStates/recipe';
 import {
   UPDATE_RECIPE_ATTRIBUTES,
   SAVE_RECIPE_SUCCESS,

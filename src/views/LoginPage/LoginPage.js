@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import axios from 'axios';
 
 // @material-ui/core components
@@ -6,7 +7,6 @@ import { withStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 // core components
 import Header from "components/Header/Header.js";
@@ -17,6 +17,12 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
+// Form
+import UserFirstName from './form/UserFirstName';
+import UserLastName from './form/UserLastName';
+import UserEmail from './form/UserEmail';
+import UserPassword from './form/UserPassword';
+import { updateUserAttributes, createUser } from "../../actions/usersActions/index";
 // import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
@@ -31,46 +37,36 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      cardAnimation: 'cardHidden'
+      cardAnimation: "cardHidden"
     }
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.createUser(this.props.user);
+    debugger
+    // try {
+    //   await axios.post('http://localhost:3000/signup', credentials);
+    //   await this.props.history.push('/signup');
+    // } catch (err) {
+    //   console.log('error: ', err.message)
+    // }
+  };
 
   componentDidMount() {
     setTimeout(() => { this.setState({ cardAnimation: '' }) }, 700);
   }
 
-  onChange(event) {
-    this.setState({[event.target.id]: event.target.value})
-  }
+  updateUserAttributes = (newAttributes) => {
+    this.props.updateUserAttributes(newAttributes)
+  };
 
-  onSubmit = async (event) => {
-    event.preventDefault();
-    const { first_name, last_name, email, password } = this.state;
-
-    const credentials = {
-      first_name,
-      email,
-      password
-    }
-
-    try {
-      await axios.post('http://localhost:3000/signup', credentials);
-      await this.props.history.push('/signup');
-    } catch (err) {
-      console.log('error: ', err.message)
-    }
-  }
 
   render () {
     const { classes } = this.props;
+    const { first_name, last_name, email, password, errors } = this.props.user;
     return (
+      <>
       <div>
         <Header
           absolute
@@ -128,73 +124,22 @@ class LoginPage extends Component {
                     </CardHeader> */}
                     <p className={classes.divider}>Sign Up</p>
                     <CardBody>
-                      <CustomInput
-                        labelText="First Name..."
-                        id="first_name"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "text",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <People className={classes.inputIconsColor}/>
-                            </InputAdornment>
-                          ),
-                        }}
-                        onChange={this.onChange}
-                      />
-                      <CustomInput
-                        labelText="Last Name..."
-                        id="last_name"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "text",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <People className={classes.inputIconsColor}/>
-                            </InputAdornment>
-                          ),
-                        }}
-                        onChange={this.onChange}
-                      />
-                      <CustomInput
-                        labelText="Email..."
-                        id="email"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "email",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Email className={classes.inputIconsColor}/>
-                            </InputAdornment>
-                          )
-                        }}
-                        onChange={this.onChange}
-                      />
-                      <CustomInput
-                        labelText="Password"
-                        id="password"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "password",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
-                              </Icon>
-                            </InputAdornment>
-                          ),
-                          autoComplete: "off"
-                        }}
-                        onChange={this.onChange}
-                      />
+                      <UserFirstName
+                        first_name={first_name}
+                        firstNameError={errors.first_name}
+                        onAttributeUpdate={this.updateUserAttributes}/>
+                      <UserLastName
+                        last_name={last_name}
+                        lastNameError={errors.last_name}
+                        onAttributeUpdate={this.updateUserAttributes}/>
+                      <UserEmail
+                        email={email}
+                        emailError={errors.email}
+                        onAttributeUpdate={this.updateUserAttributes}/>
+                      <UserPassword
+                        password={password}
+                        passwordError={errors.password}
+                        onAttributeUpdate={this.updateUserAttributes}/>
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
                       <Button simple type="submit" color="primary" size="lg">
@@ -209,8 +154,47 @@ class LoginPage extends Component {
           <Footer whiteFont />
         </div>
       </div>
+      </>
     );
   }
 }
 
-export default withStyles(useStyles)(LoginPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    createUser: (user) => {
+      dispatch(createUser(user))
+    },
+    updateUserAttributes: (newAttributes) => {
+      dispatch(updateUserAttributes(newAttributes))
+    }
+  };
+}
+
+function mapStateToProps(storeState, componentProps) {
+  const { user } = storeState;
+  return { user };
+}
+
+const LoginForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);
+
+//CustomInput
+//   labelText="Email..."
+//   id="email"
+//   formControlProps={{
+//     fullWidth: true
+//   }}
+//   inputProps={{
+//     type: "email",
+//     endAdornment: (
+//       <InputAdornment position="end">
+//         <Email className={classes.inputIconsColor}/>
+//       </InputAdornment>
+//     )
+//   }}
+//   onChange={this.onChange}
+// />
+
+export default withStyles(useStyles)(LoginForm);

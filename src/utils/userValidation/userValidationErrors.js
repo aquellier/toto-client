@@ -1,6 +1,6 @@
-import { attributeValidators } from './recipeValidation/attributeValidators';
+import { attributeValidators } from './attributeValidators';
 
-export default function recipeValidationErrors(recipe) {
+export default function userValidationErrors(recipe) {
   let errors = {};
   Object.keys(attributeValidators).forEach((validator) => {
     const validate = attributeValidators[validator]
